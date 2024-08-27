@@ -11,7 +11,7 @@ class ButtonListComponent extends React.Component {
                     <Button 
                         variant="contained"
                         key={key}
-                        style={styles.button(key)}
+                        style={this.getButtonStyle(key)}
                         onClick={() => this.props.onClick(key)}
                     >
                         {key}
@@ -19,6 +19,38 @@ class ButtonListComponent extends React.Component {
                 ))}
             </div>
         );
+    }
+
+    getButtonStyle(key) {
+        let backgroundColor = "";
+        let color = "white";
+        let width = "100%"; 
+
+        if (["AC", "DEL"].includes(key)) {
+            backgroundColor = "#f39c12";
+        } else if (key === "=") {
+            backgroundColor = "#2980b9";
+            width = "325%"; 
+        } else if (["+", "-", "*", "/", "%", "^"].includes(key)) {
+            backgroundColor = "#16a085";
+        } else if (key === ".") {
+            backgroundColor = "#8e44ad";
+        } else if (typeof key === "number") {
+            backgroundColor = "#2c3e50";
+        } else {
+            backgroundColor = "#34495e";
+        }
+
+        return {
+            backgroundColor,
+            color,
+            padding: "15px 20px",
+            fontSize: "18px",
+            borderRadius: "8px",
+            border: "none",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            width, 
+        };
     }
 }
 
@@ -31,34 +63,6 @@ const styles = {
         display: "grid",
         gridTemplateColumns: "repeat(4, 1fr)",
         gap: "10px",
-    },
-    button: (key) => {
-        let backgroundColor = "";
-        let color = "white";
-
-        if (["AC", "DEL"].includes(key)) {
-            backgroundColor = "#f39c12"; 
-        } else if (key === "=") {
-            backgroundColor = "#2980b9"; 
-        } else if (["+", "-", "*", "/", "%", "^"].includes(key)) {
-            backgroundColor = "#16a085"; 
-        } else if (key === ".") {
-            backgroundColor = "#8e44ad"; 
-        } else if (typeof key === "number") {
-            backgroundColor = "#2c3e50";
-        } else {
-            backgroundColor = "#34495e"; 
-        }
-
-        return {
-            backgroundColor,
-            color,
-            padding: "15px 20px", 
-            fontSize: "18px",
-            borderRadius: "8px", 
-            border: "none", 
-            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)", 
-        };
     },
 };
 
